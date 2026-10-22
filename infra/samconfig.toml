@@ -1,0 +1,14 @@
+version = 0.1
+
+[default.deploy.parameters]
+stack_name = "decbr-site"
+region = "us-east-1"
+capabilities = "CAPABILITY_IAM"
+confirm_changeset = true
+resolve_s3 = true
+s3_prefix = "decbr-site"
+parameter_overrides = "DomainName=\"decbr.com\""
+image_repositories = []
+
+[default.global.parameters]
+region = "us-east-1"
