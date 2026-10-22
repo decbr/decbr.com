@@ -1,8 +1,7 @@
 <script>
   import Serial from './lib/Serial.svelte'
 
-  // Set to the repo URL to show the source link in the footer.
-  const source = ''
+  const source = 'https://github.com/decbr/decbr.com'
 
   const lines = [
     'Quick, put something witty here.',

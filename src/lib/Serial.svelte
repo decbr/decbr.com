@@ -1,5 +1,4 @@
 <script>
-  // Each visitor is a unit off the line: the counter value is shown as a serial number.
   const api = import.meta.env.VITE_COUNTER_URL
   let count = $state(0)
 
