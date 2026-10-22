@@ -107,6 +107,7 @@ Resources:
           - !Sub https://${DomainName}
           - !Sub https://www.${DomainName}
         AllowMethods:
+          - GET
           - POST
       # Caps what a script hammering the endpoint can cost.
       DefaultRouteSettings:
@@ -129,7 +130,9 @@ Resources:
       Policies:
         - Statement:
             - Effect: Allow
-              Action: dynamodb:UpdateItem
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:UpdateItem
               Resource: !GetAtt CounterTable.Arn
       Events:
         Count:
@@ -138,6 +141,12 @@ Resources:
             ApiId: !Ref CounterApi
             Path: /count
             Method: POST
+        Read:
+          Type: HttpApi
+          Properties:
+            ApiId: !Ref CounterApi
+            Path: /count
+            Method: GET
 
 Outputs:
   BucketName:
