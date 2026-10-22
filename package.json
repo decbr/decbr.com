@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vite build && aws s3 sync dist s3://decbr-site-sitebucket-jxk55f2cvnl8 --delete && aws cloudfront create-invalidation --distribution-id E2IISG95XVTJX5 --paths \"/*\""
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
