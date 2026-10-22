@@ -308,7 +308,7 @@
 <footer class="foot">
   <p>
     Built with free software ∴ published as free software.
-    {#if source}<a href={source} target="_blank" rel="noopener">Read the source</a>.{/if}
+    {#if source}<a href={source} target="_blank" rel="noopener">read the source</a>.{/if}
     <a href="#overview">back to top</a>
   </p>
 </footer>
