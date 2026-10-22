@@ -6,11 +6,25 @@
   const lines = [
     'Quick, put something witty here.',
     'Runs Linux. Will tell you about it.',
-    'Strong opinions available on request.',
+    'Strong opinions, available on request.',
     'Works on my machine.',
     'Deployed on a Friday. Once.',
-    'Uptime monitored, mine excluded.',
+    'Uptime monitored, but not by me.',
     'Hey, stop that!',
+    'This is a placeholder line.',
+    'Click to add text.',
+    'Who are they?',
+    'What does IBM stand for? Nothing it just sounds professional.',
+    'These aren\'t crumbs, this is the whole fucking pie.',
+    'OneDrive would like to sync files.',
+    '2 files committed (not passing).',
+    'Foo.',
+    'Bar.',
+    'Peter piper picked a peck of pickled cabbage.',
+    'Hey, employer! Click me!',
+    'Stop clicking me!',
+    'Display all 15583 possibilities? (y or n)',
+    'Welcome to my web site',
   ]
   // @ts-ignore
   let recent = []
