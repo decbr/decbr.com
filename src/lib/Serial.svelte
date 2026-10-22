@@ -32,7 +32,7 @@
 {#if count}
   <p class="serial" title="Total visitors, updated live">
     <span class="visually-hidden">{count} visitors so far. </span>
-    <span aria-hidden="true">{String(count)} visitors.</span>
+    <span aria-hidden="true">{String(count)} visits.</span>
   </p>
 {/if}
 
