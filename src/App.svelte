@@ -170,8 +170,8 @@
 
 <header class="chassis">
   <div class="top">
-    <span class="domain">decbr.com</span>
-    <p class="status"><span class="led" aria-hidden="true"></span>Let's make the web personal again.</p>
+<!--    <span class="domain">decbr.com</span>-->
+<!--    <p class="status"><span class="led" aria-hidden="true"></span>top right prose.</p>-->
   </div>
 
   <div class="face">
