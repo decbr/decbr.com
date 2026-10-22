@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import Serial from './lib/Serial.svelte'
 
   const source = 'https://github.com/decbr/decbr.com'
@@ -26,18 +26,14 @@
     'Display all 15583 possibilities? (y or n)',
     'Welcome to my web site',
   ]
-  // @ts-ignore
-  let recent = []
+  let recent: number[] = []
   try {
-    // @ts-ignore
-    recent = JSON.parse(localStorage.getItem('recent-lines')) ?? []
+    recent = JSON.parse(localStorage.getItem('recent-lines') ?? '[]')
   } catch {}
 
   const pick = () => {
-    // @ts-ignore
     const options = lines.map((_, i) => i).filter((i) => !recent.includes(i))
     const i = options[Math.floor(Math.random() * options.length)]
-    // @ts-ignore
     recent = [i, ...recent].slice(0, 3)
     try {
       localStorage.setItem('recent-lines', JSON.stringify(recent))
@@ -48,7 +44,7 @@
   let line = $state(pick())
 
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches
-  let phase = $state('')
+  let phase: '' | 'out' | 'in' = $state('')
   const nextLine = () => {
     if (still) line = pick()
     else if (!phase) phase = 'out'
@@ -447,10 +443,6 @@
     font-size: 0.75rem;
     line-height: 1.5;
     color: var(--muted);
-  }
-
-  .smallprint p:first-child {
-    max-width: 62ch;
   }
 
   .specs {

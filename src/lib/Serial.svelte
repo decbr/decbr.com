@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   const api = import.meta.env.PROD && import.meta.env.VITE_COUNTER_URL
   let count = $state(0)
 
@@ -9,7 +9,7 @@
       counted = sessionStorage.getItem('counted') === '1'
     } catch {}
 
-    const load = (method) =>
+    const load = (method: 'GET' | 'POST') =>
       fetch(api, { method })
         .then((r) => (r.ok ? r.json() : null))
         .then((data) => {
