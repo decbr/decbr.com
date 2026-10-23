@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "node scripts/credly.ts && vite build",
     "preview": "vite preview",
-    "deploy": "npm run check && vite build && aws s3 sync dist s3://decbr-site-sitebucket-jxk55f2cvnl8 --delete && aws cloudfront create-invalidation --distribution-id E2IISG95XVTJX5 --paths \"/*\"",
+    "deploy": "npm run check && npm run build && aws s3 sync dist s3://decbr-site-sitebucket-jxk55f2cvnl8 --delete && aws cloudfront create-invalidation --distribution-id E2IISG95XVTJX5 --paths \"/*\"",
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^7.3.1",
     "@tsconfig/svelte": "^5.0.8",
+    "@types/node": "^22.20.5",
     "svelte": "^5.57.2",
     "svelte-check": "^4.7.7",
     "typescript": "^6.0.3",
