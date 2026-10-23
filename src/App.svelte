@@ -38,6 +38,7 @@
   const opener = from.length ? from[Math.floor(Math.random() * from.length)] : -1
   if (opener >= 0) recent = [opener, ...recent.filter((i) => i !== opener)]
   let line = $state(opener >= 0 ? opener : pick())
+  let view: 'issuer' | 'category' = $state('issuer')
 
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches
   let phase: '' | 'out' | 'in' = $state('')
@@ -170,11 +171,17 @@
   </section>
 
   <section class="row">
-    <h2>Credentials</h2>
+    <div>
+      <h2>Credentials</h2>
+      <p class="view" role="group" aria-label="Group credentials by">
+        by <button type="button" aria-pressed={view === 'issuer'} onclick={() => (view = 'issuer')}>issuer</button>
+        or <button type="button" aria-pressed={view === 'category'} onclick={() => (view = 'category')}>category</button>
+      </p>
+    </div>
     <div class="body">
       <dl class="creds">
-        {#each credentials as group}
-          <dt>{group.issuer}</dt>
+        {#each credentials[view] as group}
+          <dt>{group.label}</dt>
           <dd>
             <ul>
               {#each group.items as [name, badge]}
@@ -420,6 +427,33 @@
     color: var(--muted);
   }
 
+  .view {
+    margin-top: 0.25rem;
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  /* styled as the site's links: underlined means you can switch to it */
+  .view button {
+    all: unset;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+  }
+
+  .view button[aria-pressed='true'] {
+    color: var(--ink);
+    text-decoration: none;
+    cursor: default;
+  }
+
+  .view button:focus-visible {
+    outline: 2px solid var(--ink);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
   .creds {
     display: grid;
     grid-template-columns: 6rem 1fr;
@@ -486,6 +520,10 @@
   }
 
   @media print {
+    .view {
+      display: none;
+    }
+
     .chassis {
       min-height: 0;
       margin: 0 0 6mm;

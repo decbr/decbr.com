@@ -9,16 +9,39 @@ const issuers: Record<string, string> = {
   'Project Management Institute': 'PMI',
 }
 
-const badgeNames: Record<string, string> = {
-  'MongoDB Basics for Students': 'Basics for Students',
+// unmapped badges fall back to their issuer as category
+const categories: Record<string, string> = {
+  'AI Fundamentals: Foundations for Understanding AI': 'AI',
+  'Getting Started with Generative AI': 'AI',
+  'Cloud Computing Fundamentals': 'Cloud',
+  'Getting Started with Cybersecurity': 'Security',
+  'MongoDB Basics for Students': 'Data',
+  'Search with MongoDB': 'Data',
+  'Python Essentials 2': 'Programming',
+  'Fundamentals of Agile Project Management': 'Project Management',
+  'Fundamentals of Predictive Project Management': 'Project Management',
+  'Customer Engagement Fundamentals': 'Business',
+  'Enterprise Design Thinking Practitioner': 'Business',
 }
 
-const order = ['IBM', 'PMI', 'MongoDB', 'Cisco', 'DofE']
-const rank = (issuer: string) => (order.includes(issuer) ? order.indexOf(issuer) : order.length)
+const issuerOrder = ['IBM', 'PMI', 'MongoDB', 'Cisco', 'DofE']
+const categoryOrder = ['AI', 'Cloud', 'Security', 'Data', 'Programming', 'Project Management', 'Business', 'Awards']
 
-const manual: { issuer: string; items: [string, string?][] }[] = [
-  { issuer: 'DofE', items: [['Bronze Award']] },
-]
+type Item = { name: string; id?: string; issuer: string; category: string }
+
+const manual: Item[] = [{ name: 'DofE Bronze Award', issuer: 'DofE', category: 'Awards' }]
+
+// unlisted labels sort last, in arrival order
+const group = (items: Item[], key: 'issuer' | 'category', order: string[]) => {
+  const groups = new Map<string, [string, string?][]>()
+  for (const { name, id, [key]: label } of items) {
+    const list = groups.get(label) ?? []
+    if (!list.some(([n]) => n === name)) list.push(id ? [name, id] : [name])
+    groups.set(label, list)
+  }
+  const rank = (label: string) => (order.includes(label) ? order.indexOf(label) : order.length)
+  return [...groups].map(([label, items]) => ({ label, items })).sort((a, b) => rank(a.label) - rank(b.label))
+}
 
 type Badge = {
   id: string
@@ -36,19 +59,15 @@ try {
     if (!body.metadata.next_page_url) break
   }
 
-  const groups = new Map<string, [string, string?][]>()
-  for (const badge of badges) {
+  const items: Item[] = badges.map((badge) => {
     const credlyIssuer = (badge.issuer.entities.find((e) => e.primary) ?? badge.issuer.entities[0]).entity.name
     const issuer = issuers[credlyIssuer] ?? credlyIssuer
-    const name = badgeNames[badge.badge_template.name] ?? badge.badge_template.name
-    const items = groups.get(issuer) ?? []
-    if (!items.some(([n]) => n === name)) items.push([name, badge.id])
-    groups.set(issuer, items)
-  }
+    const name = badge.badge_template.name
+    return { name, id: badge.id, issuer, category: categories[name] ?? issuer }
+  })
+  items.push(...manual)
 
-  const credentials = [...[...groups].map(([issuer, items]) => ({ issuer, items })), ...manual].sort(
-    (a, b) => rank(a.issuer) - rank(b.issuer),
-  )
+  const credentials = { issuer: group(items, 'issuer', issuerOrder), category: group(items, 'category', categoryOrder) }
   writeFileSync(out, JSON.stringify(credentials, null, 2) + '\n')
   console.log(`credly: wrote ${badges.length} badges`)
 } catch (e) {
