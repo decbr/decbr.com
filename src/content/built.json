@@ -1,0 +1,43 @@
+[
+  {
+    "name": "F**king Good Markdown Parser",
+    "text": "A custom markdown parser written in TypeScript. Available on npm under decbr/fgmd. Used by myself and others.",
+    "link": "https://fgmd.dev"
+  },
+  {
+    "name": "Music Orderer",
+    "text": "Go, GPL-3.0. Renames music files to match the official track listing from MusicBrainz, with a companion tool that finds the right release ID.",
+    "link": "https://github.com/decbr/MusicOrderer"
+  },
+  {
+    "name": "Better unbeatable RPC",
+    "text": "Go, GPL-3.0. Discord Rich Presence for the game UNBEATABLE that shows the current song, with a settings app and tested releases built in CI.",
+    "link": "https://github.com/decbr/better-unbeatable-rpc"
+  },
+  {
+    "name": "Klyx.org",
+    "text": "Website for Klyx Games.",
+    "link": "https://klyx.org"
+  },
+  {
+    "name": "MCMayhem.live",
+    "text": "Website for MC Mayhem.",
+    "link": "https://mcmayhem.live"
+  },
+  {
+    "name": "Static site generator",
+    "text": "PHP, no dependencies. Its own markdown parser and RSS packager, written to understand how one works rather than install someone else’s."
+  },
+  {
+    "name": "Home server",
+    "text": "Ubuntu Server, reachable over Tailscale. Runs Jellyfin for media and Uptime Kuma for monitoring. Samba file share for real personal and organisation use."
+  },
+  {
+    "name": "Workstation",
+    "text": "EndeavourOS and KDE Plasma, full time. Been on the linux train before it was cool."
+  },
+  {
+    "name": "This site",
+    "text": "Svelte on AWS S3 and CloudFront. Only technical thing is the visitor counter on Lambda and DynamoDB, defined in a SAM template. Otherwise, it's a simple site by design."
+  }
+]

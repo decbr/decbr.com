@@ -1,0 +1,32 @@
+[
+  {
+    "role": "Junior Web Developer",
+    "org": "IBM Manchester",
+    "dates": "Oct 2025 - present",
+    "text": "Industry placement in Client Solutions. Took the DevOps and deployment side of a four-person e-commerce platform built on FastAPI, and led its migration from SQLite to Supabase. Professional client conversations and presentations throughout. Modules covering cloud, AI and cybersecurity."
+  },
+  {
+    "role": "IT Support Technician",
+    "org": "PetStay Stockport",
+    "dates": "Jun 2025 - present",
+    "text": "IT and bookings for a family-run dog boarding business. Wrote a Google Apps Script automation that sorts incoming form responses, replacing a manual admin job. Set up a Samba file share. Bookkeeping in Sage 50. The person who gets called when something breaks."
+  },
+  {
+    "role": "Runner and Operations Support",
+    "org": "BiomeBattle",
+    "dates": "Sep 2024 - present",
+    "text": "Java plugins for a recurring competitive Minecraft event watched by thousands of spectators. Operations support during live events, changing systems while players are online. Distributed team, working through Git and GitHub."
+  },
+  {
+    "role": "Front of House",
+    "org": "Casa Papi",
+    "dates": "Sep 2026 - present",
+    "text": "Part-time, over ten hours a week alongside studies. Take orders in person and run the Square till and incoming Deliveroo orders during service."
+  },
+  {
+    "role": "Volunteer",
+    "org": "Barnardo’s",
+    "dates": "Dec 2023 - Sep 2024",
+    "text": "Nine months on the shop floor, every week."
+  }
+]

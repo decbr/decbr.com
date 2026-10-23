@@ -1,31 +1,11 @@
 <script lang="ts">
   import Serial from './lib/Serial.svelte'
+  import source from './content/source.json'
+  import lines from './content/lines.json'
+  import experience from './content/experience.json'
+  import built from './content/built.json'
+  import credentials from './content/credentials.json'
 
-  const source = 'https://github.com/decbr/decbr.com'
-
-  const lines = [
-    'Quick, put something witty here.',
-    'Runs Linux. Will tell you about it.',
-    'Strong opinions, available on request.',
-    'Works on my machine.',
-    'Deployed on a Friday. Once.',
-    'Uptime monitored, but not by me.',
-    'Hey, stop that!',
-    'This is a placeholder line.',
-    'Click to add text.',
-    'Who are they?',
-    'What does IBM stand for? Nothing it just sounds professional.',
-    'These aren\'t crumbs, this is the whole fucking pie.',
-    'OneDrive would like to sync files.',
-    '2 files committed (not passing).',
-    'Foo.',
-    'Bar.',
-    'Peter piper picked a peck of pickled cabbage.',
-    'Hey, employer! Click me!',
-    'Stop clicking me!',
-    'Display all 15583 possibilities? (y or n)',
-    'Welcome to my web site',
-  ]
   let recent: number[] = []
   try {
     recent = JSON.parse(localStorage.getItem('recent-lines') ?? '[]')
@@ -55,113 +35,6 @@
       phase = 'in'
     } else phase = ''
   }
-
-  const experience = [
-    {
-      role: 'Junior Web Developer',
-      org: 'IBM Manchester',
-      dates: 'Oct 2025 - present',
-      text: 'Industry placement in Client Solutions. Took the DevOps and deployment side of a four-person e-commerce platform built on FastAPI, and led its migration from SQLite to Supabase. Professional client conversations and presentations throughout. Modules covering cloud, AI and cybersecurity.',
-    },
-    {
-      role: 'IT Support Technician',
-      org: 'PetStay Stockport',
-      dates: 'Jun 2025 - present',
-      text: 'IT and bookings for a family-run dog boarding business. Wrote a Google Apps Script automation that sorts incoming form responses, replacing a manual admin job. Set up a Samba file share. Bookkeeping in Sage 50. The person who gets called when something breaks.',
-    },
-    {
-      role: 'Runner and Operations Support',
-      org: 'BiomeBattle',
-      dates: 'Sep 2024 - present',
-      text: 'Java plugins for a recurring competitive Minecraft event watched by thousands of spectators. Operations support during live events, changing systems while players are online. Distributed team, working through Git and GitHub.',
-    },
-    {
-      role: 'Front of House',
-      org: 'Casa Papi',
-      dates: 'Sep 2026 - present',
-      text: 'Part-time, over ten hours a week alongside studies. Take orders in person and run the Square till and incoming Deliveroo orders during service.',
-    },
-    {
-      role: 'Volunteer',
-      org: 'Barnardo’s',
-      dates: 'Dec 2023 - Sep 2024',
-      text: 'Nine months on the shop floor, every week.',
-    },
-  ]
-
-  const built = [
-    {
-      name: 'F**king Good Markdown Parser',
-      text: 'A custom markdown parser written in TypeScript. Available on npm under decbr/fgmd. Used by myself and others.',
-      link: 'https://fgmd.dev',
-    },
-    {
-      name: 'Music Orderer',
-      text: 'Go, GPL-3.0. Renames music files to match the official track listing from MusicBrainz, with a companion tool that finds the right release ID.',
-      link: 'https://github.com/decbr/MusicOrderer',
-    },
-    {
-      name: 'Better unbeatable RPC',
-      text: 'Go, GPL-3.0. Discord Rich Presence for the game UNBEATABLE that shows the current song, with a settings app and tested releases built in CI.',
-      link: 'https://github.com/decbr/better-unbeatable-rpc',
-    },
-    {
-      name: 'Klyx.org',
-      text: 'Website for Klyx Games.',
-      link: 'https://klyx.org',
-    },
-    {
-      name: 'MCMayhem.live',
-      text: 'Website for MC Mayhem.',
-      link: 'https://mcmayhem.live',
-    },
-    {
-      name: 'Static site generator',
-      text: 'PHP, no dependencies. Its own markdown parser and RSS packager, written to understand how one works rather than install someone else’s.',
-    },
-    {
-      name: 'Home server',
-      text: 'Ubuntu Server, reachable over Tailscale. Runs Jellyfin for media and Uptime Kuma for monitoring. Samba file share for real personal and organisation use.',
-    },
-    {
-      name: 'Workstation',
-      text: 'EndeavourOS and KDE Plasma, full time. Been on the linux train before it was cool.',
-    },
-    {
-      name: 'This site',
-      text: 'Svelte on AWS S3 and CloudFront. Only technical thing is the visitor counter on Lambda and DynamoDB, defined in a SAM template. Otherwise, it\'s a simple site by design.',
-    },
-  ]
-
-  const credentials = [
-    {
-      issuer: 'IBM',
-      items: [
-        ['Enterprise Design Thinking Practitioner', 'd7adde38-2a16-4238-a4eb-f2d405b4ae61'],
-        ['Customer Engagement Fundamentals', 'a528c989-b122-4e0c-80ef-90ea427a9cfc'],
-        ['Cloud Computing Fundamentals', '479ae667-e280-4073-8e5f-52dfa1d46e65'],
-        ['AI Fundamentals: Foundations for Understanding AI', '3e15b6f0-fd93-4798-b369-f7e013a48017'],
-        ['Getting Started with Generative AI', 'ff3a6579-0acf-4279-9270-5efdc24a4a26'],
-        ['Getting Started with Cybersecurity', 'c06fe45b-e186-4734-9c72-b0084230c757'],
-      ],
-    },
-    {
-      issuer: 'PMI',
-      items: [
-        ['Fundamentals of Agile Project Management', '3c9baeb0-42db-4580-937f-e586aa989e6c'],
-        ['Fundamentals of Predictive Project Management', 'ec204495-3b47-4152-9797-528f09507a9f'],
-      ],
-    },
-    {
-      issuer: 'MongoDB',
-      items: [
-        ['Basics for Students', '2fa8e659-066e-4beb-8632-2b5ebbe3b72b'],
-        ['Search with MongoDB', 'f898a31c-3576-4404-a504-8d7e344de5fb'],
-      ],
-    },
-    { issuer: 'Cisco', items: [['Python Essentials 2', '659815b8-c449-4424-97e7-156146ba9a70']] },
-    { issuer: 'DofE', items: [['Bronze Award']] },
-  ]
 </script>
 
 <header class="chassis">
