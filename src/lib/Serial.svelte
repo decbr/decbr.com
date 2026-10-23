@@ -29,10 +29,15 @@
   })
 </script>
 
-{#if count}
+<!-- Rendered before the count arrives so the header doesn't shift when it does. -->
+{#if api}
   <p class="serial" title="Total visitors, updated live">
-    <span class="visually-hidden">{count} visitors so far. </span>
-    <span aria-hidden="true">{String(count)} visits.</span>
+    {#if count}
+      <span class="visually-hidden">{count} visitors so far. </span>
+      <span aria-hidden="true">{String(count)} visits.</span>
+    {:else}
+      &nbsp;
+    {/if}
   </p>
 {/if}
 

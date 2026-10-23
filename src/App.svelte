@@ -2,6 +2,7 @@
   import Serial from './lib/Serial.svelte'
   import source from './content/source.json'
   import lines from './content/lines.json'
+  import openers from './content/openers.json'
   import experience from './content/experience.json'
   import built from './content/built.json'
   import credentials from './content/credentials.json'
@@ -11,30 +12,56 @@
     recent = JSON.parse(localStorage.getItem('recent-lines') ?? '[]')
   } catch {}
 
+  // shortcut: chosen at load, not on resize
+  const short = matchMedia('(max-width: 720px)').matches
+  const pool = lines.map((_, i) => i).filter((i) => !short || lines[i].length <= 30)
+
+  // Every line once before any repeats; the last one shown can't open the next cycle.
   const pick = () => {
-    const options = lines.map((_, i) => i).filter((i) => !recent.includes(i))
+    let options = pool.filter((i) => !recent.includes(i))
+    if (!options.length) {
+      options = pool.filter((i) => i !== recent[0])
+      recent = []
+    }
     const i = options[Math.floor(Math.random() * options.length)]
-    recent = [i, ...recent].slice(0, 3)
+    recent = [i, ...recent]
     try {
       localStorage.setItem('recent-lines', JSON.stringify(recent))
     } catch {}
     return i
   }
 
-  let line = $state(pick())
+  // Each load opens on a random opener, preferring ones that pass the mobile cutoff; marked as just shown so the first click moves on.
+  const starts = openers.map((s) => lines.indexOf(s)).filter((i) => i >= 0)
+  const fitting = starts.filter((i) => pool.includes(i))
+  const from = fitting.length ? fitting : starts
+  const opener = from.length ? from[Math.floor(Math.random() * from.length)] : -1
+  if (opener >= 0) recent = [opener, ...recent.filter((i) => i !== opener)]
+  let line = $state(opener >= 0 ? opener : pick())
 
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches
   let phase: '' | 'out' | 'in' = $state('')
+  let keep = false
   const nextLine = () => {
+    clearTimeout(intro)
     if (still) line = pick()
     else if (!phase) phase = 'out'
   }
   const rolled = () => {
     if (phase === 'out') {
-      line = pick()
+      if (!keep) line = pick()
+      keep = false
       phase = 'in'
     } else phase = ''
   }
+
+  // Rolls the opener out and back in after the LED powers on, to show the line can be clicked.
+  const intro = still
+    ? undefined
+    : setTimeout(() => {
+        keep = true
+        phase = 'out'
+      }, 1200)
 </script>
 
 <header class="chassis">
